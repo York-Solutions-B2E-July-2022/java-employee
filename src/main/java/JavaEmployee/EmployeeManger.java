@@ -1,5 +1,6 @@
 package JavaEmployee;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,6 +22,12 @@ public class EmployeeManger {
         this.employees = this.employees.stream().filter((emp)->{
             return emp.id != emp_id;
         }).collect(Collectors.toList());
+        //ArrayList<Employee> newarray = new ArrayList<Employee>();
+        //for(Employee emp :employees){
+        //    if(func(emp)){
+        //        newarray.add(emp);
+        //    }
+        //}
     }
 
     public void replace(UUID emp_id, Employee employee) {
@@ -37,10 +44,23 @@ public class EmployeeManger {
     public String toString() {
         //System.out.println("Name\tYear\tAddress\t");
 
-        String newstring = "Name\tYear\tAddress\t\n";
+        String newstring = "Name\tYear\tAddress\tSalary\n";
         for ( Employee emp: this.employees) {
-            newstring += emp + "\n";
+            newstring += emp.toString() + "\n";
         }
         return newstring;
+    }
+
+    public float getAvgHourly(int hours){
+        float total = 0;
+        for (Employee emp: this.employees){
+            total += emp.getInfo(hours);
+        }
+        return total / this.employees.size();
+    }
+    public void applyRaises(){
+        for (Employee emp: this.employees){
+            emp.addSalary();
+        }
     }
 }
