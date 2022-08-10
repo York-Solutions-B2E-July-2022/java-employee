@@ -23,6 +23,24 @@ public class EmployeeManger {
         }).collect(Collectors.toList());
     }
 
-    public void replace() {
+    public void replace(UUID emp_id, Employee employee) {
+        this.employees = this.employees.stream().map((emp)->{
+            if(emp.id == emp_id) {
+                employee.setId(emp_id);
+                return employee;
+            }
+            return emp;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        //System.out.println("Name\tYear\tAddress\t");
+
+        String newstring = "Name\tYear\tAddress\t\n";
+        for ( Employee emp: this.employees) {
+            newstring += emp + "\n";
+        }
+        return newstring;
     }
 }
